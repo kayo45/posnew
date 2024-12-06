@@ -66,6 +66,8 @@ class LoginController extends Controller
         //     });
         //     copy(public_path("landlord/images/logo/").$general_setting->site_logo, "logo/".$general_setting->site_logo);
         // }
+
+        $general_setting = DB::table('general_settings')->latest()->first();
         $numberOfUserAccount = \App\Models\User::where('is_active', true)->count();
         return view('backend.auth.login', compact('theme', 'general_setting', 'numberOfUserAccount'));
     }
