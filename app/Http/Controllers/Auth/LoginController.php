@@ -55,17 +55,17 @@ class LoginController extends Controller
         else
             $theme = 'light';
         //get general setting value
-        $general_setting =  Cache::remember('general_setting', 60*60*24*365, function () {
-            return DB::table('general_settings')->latest()->first();
-        });
+        // $general_setting =  Cache::remember('general_setting', 60*60*24*365, function () {
+        //     return DB::table('general_settings')->latest()->first();
+        // });
 
-        if(!$general_setting) {
-            \DB::unprepared(file_get_contents(public_path('tenant_necessary.sql')));
-            $general_setting =  Cache::remember('general_setting', 60*60*24*365, function () {
-                return DB::table('general_settings')->latest()->first();
-            });
-            copy(public_path("landlord/images/logo/").$general_setting->site_logo, "logo/".$general_setting->site_logo);
-        }
+        // if(!$general_setting) {
+        //     \DB::unprepared(file_get_contents(public_path('tenant_necessary.sql')));
+        //     $general_setting =  Cache::remember('general_setting', 60*60*24*365, function () {
+        //         return DB::table('general_settings')->latest()->first();
+        //     });
+        //     copy(public_path("landlord/images/logo/").$general_setting->site_logo, "logo/".$general_setting->site_logo);
+        // }
         $numberOfUserAccount = \App\Models\User::where('is_active', true)->count();
         return view('backend.auth.login', compact('theme', 'general_setting', 'numberOfUserAccount'));
     }
